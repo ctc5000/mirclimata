@@ -1,5 +1,5 @@
 const app = require('./app');
-//const Settings = require('./Controllers/Settings/SettingsCntrl');
+const Settings = require('./Controllers/Settings/SettingsCntrl');
 const sequelize = require('./sequelize');
 const PORT = process.env.PORT;
 
@@ -23,7 +23,7 @@ async function init() {
     app.listen(PORT, () => {
         console.log(`Сервер успешно запущен на порту: ${PORT}. доступ к апи '/api/'.`);
     });
-    //await Settings.SynchBd();
+    await Settings.SynchBd();
 }
 
 init();

@@ -14,22 +14,22 @@ const sequelize = new Sequelize(
 )
 
 const modelDefiners = [
-   /* require('../Models/Users/User.model'),
-    require('../Models/Money/Money.model'),
-    require('../Models/Fruits/Fruits.model'),
-    require('../Models/Fruits/usersfruits.model'),
-    require('../Models/Friends/Friends.model'),
-    require('../Models/Users/UserLvl.model'),
-    require('../Models/LvlBoard/LvlBoard.model'),
-    require('../Models/DailyTasks/DailyTask.model'),
-    require('../Models/DailyTasks/userTasks.model'),
-    require('../Models/Stamina/Stamina.model'),
-    require('../Models/Drakariki/Drakariks.model'),
-    require('../Models/Items/Items.model'),
-    require('../Models/Items/usersItems.model.js'),
-    require('../Models/Cards/Card.model'),
-    require('../Models/Cards/UsersCard.model'),
-    require('../Models/QrCodes/QrCode.model'),*/
+    require('../Models/Images/Images.model'),
+    /*  require('../Models/Money/Money.model'),
+      require('../Models/Fruits/Fruits.model'),
+      require('../Models/Fruits/usersfruits.model'),
+      require('../Models/Friends/Friends.model'),
+      require('../Models/Users/UserLvl.model'),
+      require('../Models/LvlBoard/LvlBoard.model'),
+      require('../Models/DailyTasks/DailyTask.model'),
+      require('../Models/DailyTasks/userTasks.model'),
+      require('../Models/Stamina/Stamina.model'),
+      require('../Models/Drakariki/Drakariks.model'),
+      require('../Models/Items/Items.model'),
+      require('../Models/Items/usersItems.model.js'),
+      require('../Models/Cards/Card.model'),
+      require('../Models/Cards/UsersCard.model'),
+      require('../Models/QrCodes/QrCode.model'),*/
 
 
 ];

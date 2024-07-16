@@ -1,7 +1,13 @@
 const ImagesCntrl = require('./ImagesCntrl');
 
-async function GenerateQrOn(req, res) {
 
-    const QR = await ImagesCntrl.GetImage(req.url);
-    res.json(QR);
+async function GetImage(req, res) {
+
+    const Result = await ImagesCntrl.GetImage(req.query.id);
+    res.json(Result);
 }
+module.exports =
+    {
+        GetImage,
+
+    }

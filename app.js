@@ -13,9 +13,12 @@ const app = express();
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+
+const ImageCntrl = require('./Controllers/ImagesCntrl/ImagesCntrl');
+
 const routes = {
     //SALE_LOGIC
-   users: require('./Controllers/ImagesCntrl/ImagesCntrlView'),
+   images: require('./Controllers/ImagesCntrl/ImagesCntrlView'),
     /*     fruits: require('./Controllers/Fruits/FruitsView'),
         friends: require('./Controllers/Friends/FriendsView'),
         gamelvls: require('./Controllers/LvlBoard/LvlBoardView'),
@@ -55,35 +58,40 @@ app.get('/', (req, res) => {
 
 const multer = require('multer');
 const upload = multer({dest: 'uploads/'})
-app.post('/api/upload', upload.single('file'), function (req, res, next) {
+app.post('/climate/api/upload', upload.single('file'), async function (req, res, next) {
     let timestamp = Date.now();
-    let filename = "img/"+ timestamp + "_" + req.file.originalname;
-    fs.rename(req.file.path, "uploads/"+filename, function (err) {
+    let filename = "img/" + timestamp + "_" + req.file.originalname;
+    let url = process.env.SERVER + filename;
+    let qrcode = 'uploads/qrs/qrcod_' + timestamp + req.file.originalname + '.png';
+
+    await fs.rename(req.file.path, "uploads/" + filename, async function (err) {
         if (err) throw err;
-        let url = "https://test.ru/"+filename;
-        QRCode.toFile('uploads/qrs/qrcod_' + req.file.originalname + '.png', url, {
+
+        QRCode.toFile(qrcode, url, {
             color: {
                 dark: '#000',
                 light: '#fff',
             }
-        }, function (err) {
-            if (err) throw err
-            //console.log('done')
+        }, async function (err) {
+            if (err) throw err;
 
-            // Возвращаем qr код как ответ
-            res.sendFile('uploads/qrs/qrcod_' + req.file.originalname + '.png', { root: __dirname });
+            console.log(url);
+            console.log(qrcode);
+
+            let ImageResult = await ImageCntrl.CreateImage(url, qrcode);
+            res.json(ImageResult);
         });
     });
-})
+});
 
 
 for (const [routeName, routeController] of Object.entries(routes)) {
 
 
-    if (routeController.SearchByName) {
-        app.post(
-            `/api/${routeName}/serachbyname`,
-            makeHandlerAwareOfAsyncErrors(routeController.SearchByName)
+    if (routeController.GetImage) {
+        app.get(
+            `/climate/api/${routeName}/getimage`,
+            makeHandlerAwareOfAsyncErrors(routeController.GetImage)
         );
     }
 

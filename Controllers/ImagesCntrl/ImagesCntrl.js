@@ -1,21 +1,20 @@
+const {models} = require("../../sequelize");
+const {Op} = require("sequelize");
+async function CreateImage(imglinq,qrlinq) {
+     let ImageResult = await models.Images.create({
+         orginalimage:imglinq,
+         qrimage:qrlinq,
+     })
 
-async function GetImage(imageName) {
-        let url = "https://test.ru/";
-            await QRCode.toFile('uploads/qrs/qrcod_' + Tables[i].number + '.png', url, {
-                color: {
-                    dark: '#000',
-                    light: '#fff',
-                }
-            }, function (err) {
-                if (err) throw err
-                //console.log('done')
-            })
-            console.log("creating");
-
-    return true;
+    return ImageResult;
+}
+async function GetImage(id)
+{
+    return await models.Images.findOne({where:{id:id}});
 }
 module.exports =
     {
+        CreateImage,
         GetImage,
 
     }
