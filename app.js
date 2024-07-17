@@ -61,7 +61,7 @@ const upload = multer({dest: 'uploads/'})
 app.post('/api/upload', upload.single('file'), async function (req, res, next) {
     let timestamp = Date.now();
     let filename = "img/" + timestamp + ".png";
-    let url =filename;
+    let url =process.env.SERVER +filename;
     let qrcode = 'qrs/qrcod_' + timestamp + '.png';
 
     await fs.rename(req.file.path, "uploads/" + filename, async function (err) {
@@ -78,7 +78,7 @@ app.post('/api/upload', upload.single('file'), async function (req, res, next) {
             console.log(url);
             console.log(qrcode);
 
-            let ImageResult = await ImageCntrl.CreateImage(process.env.SERVER +url, process.env.SERVER +qrcode);
+            let ImageResult = await ImageCntrl.CreateImage(url, process.env.SERVER +qrcode);
             res.json(ImageResult);
         });
     });
