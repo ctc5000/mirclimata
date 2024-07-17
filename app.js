@@ -60,14 +60,14 @@ const multer = require('multer');
 const upload = multer({dest: 'uploads/'})
 app.post('/api/upload', upload.single('file'), async function (req, res, next) {
     let timestamp = Date.now();
-    let filename = "img/" + timestamp + "_" + req.file.originalname;
-    let url = process.env.SERVER + filename;
-    let qrcode = 'uploads/qrs/qrcod_' + timestamp + req.file.originalname + '.png';
+    let filename = "img/" + timestamp + ".png";
+    let url =filename;
+    let qrcode = 'qrs/qrcod_' + timestamp + '.png';
 
     await fs.rename(req.file.path, "uploads/" + filename, async function (err) {
         if (err) throw err;
 
-        QRCode.toFile(qrcode, url, {
+        QRCode.toFile("uploads/"+qrcode, url, {
             color: {
                 dark: '#000',
                 light: '#fff',
@@ -78,7 +78,7 @@ app.post('/api/upload', upload.single('file'), async function (req, res, next) {
             console.log(url);
             console.log(qrcode);
 
-            let ImageResult = await ImageCntrl.CreateImage(url, qrcode);
+            let ImageResult = await ImageCntrl.CreateImage(process.env.SERVER +url, process.env.SERVER +qrcode);
             res.json(ImageResult);
         });
     });
