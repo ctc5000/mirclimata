@@ -5,7 +5,7 @@ info:
 servers:
   - url: /
 paths:
-  /climate/api/upload:
+  /api/upload:
     post:
       tags:
         - default
@@ -24,7 +24,7 @@ paths:
           description: Successful response
           content:
             application/json: {}
-  /climate/api/images/getimage:
+  /api/images/getimage:
     get:
       tags:
         - default
@@ -34,7 +34,7 @@ paths:
           in: query
           schema:
             type: integer
-          example: '4'
+          example: '5'
       responses:
         '200':
           description: Successful response

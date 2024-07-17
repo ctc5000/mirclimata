@@ -58,7 +58,7 @@ app.get('/', (req, res) => {
 
 const multer = require('multer');
 const upload = multer({dest: 'uploads/'})
-app.post('/climate/api/upload', upload.single('file'), async function (req, res, next) {
+app.post('/api/upload', upload.single('file'), async function (req, res, next) {
     let timestamp = Date.now();
     let filename = "img/" + timestamp + "_" + req.file.originalname;
     let url = process.env.SERVER + filename;
@@ -90,7 +90,7 @@ for (const [routeName, routeController] of Object.entries(routes)) {
 
     if (routeController.GetImage) {
         app.get(
-            `/climate/api/${routeName}/getimage`,
+            `/api/${routeName}/getimage`,
             makeHandlerAwareOfAsyncErrors(routeController.GetImage)
         );
     }
